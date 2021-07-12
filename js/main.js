@@ -1,26 +1,3 @@
-function onDragStart(event) {
-  event
-    .dataTransfer
-    .setData('text/plain', event.target.id);
-}
-
-function onDragOver(event) {
-  event.preventDefault();
-}
-
-function onDrop(event) {
-  const id = event
-    .dataTransfer
-    .getData('text');
-  const draggableElement = document.getElementById(id);
-  const dropzone = event.target;
-  dropzone.appendChild(draggableElement);
-  event
-    .dataTransfer
-    .clearData();
-}
-
-
 //////////////////
 const cards = document.getElementById('cards');
 const items = document.getElementById('items');
@@ -46,11 +23,37 @@ items.addEventListener('click', e =>{
   btnAccion(e);
 })
 
+
+function onDragStart(event) {
+  event
+    .dataTransfer
+    .setData('text/plain', event.target.id);
+}
+
+function onDragOver(event) {
+  event.preventDefault();
+}
+
+function onDrop(event) {
+  const id = event
+    .dataTransfer
+    .getData('text');
+  const draggableElement = document.getElementById(id);
+  console.log('ID '+id);
+  console.log('draga: '+draggableElement);
+  const dropzone = event.target;
+  dropzone.appendChild(draggableElement);
+  event
+    .dataTransfer
+    .clearData();
+}
+
+
 // Traer productos
 const fetchData = async () => {
   const res = await fetch('api.json');
-  const data = await res.json()
-  pintarCards(data)
+  const data = await res.json();
+  pintarCards(data);
 }
 
 const pintarCards = data => {
@@ -59,6 +62,10 @@ const pintarCards = data => {
     templateCard.querySelector('p').textContent = producto.precio;
     templateCard.querySelector('img').setAttribute("src",producto.thumbnailUrl);
     templateCard.querySelector('.btn-dark').dataset.id = producto.id;
+    templateCard.querySelector('h5').setAttribute("id",producto.id);
+    templateCard.querySelector('h5').setAttribute("class",'example-draggable');
+    templateCard.querySelector('h5').setAttribute("draggable",'true');
+    templateCard.querySelector('h5').setAttribute("ondragstart",'onDragStart(event)');
     const clone = templateCard.cloneNode(true);
     fragment.appendChild(clone);
   })
