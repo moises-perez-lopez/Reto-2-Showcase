@@ -33,13 +33,13 @@
             </tfoot>
         </table>
     </div>
-    <div class="example-parent">
 
 
-        <div class="example-dropzone" ondragover="onDragOver(event)" ondrop="onDrop(event)">
-            dropzone
-        </div>
-    </div>
+
+
+    <div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+
+    <div id="div3" ondrop="drop2(event)" ondragover="allowDrop2(event)"></div>
 
 
     <!-- Aquí colocamos los templates que necesitamos para pintar-->
@@ -84,8 +84,27 @@
                 </div>
             </div>
         </div>
-        </div>
     </template>
+
+    <template id="template-cesta">
+        <tr>
+            <th scope="row">id</th>
+            <td>Café</td>
+            <td>1</td>
+            <td>
+                <button class="btn btn-info btn-sm">
+                    +
+                </button>
+                <button class="btn btn-danger btn-sm">
+                    -
+                </button>
+            </td>
+
+            <td><span>500</span> Є</td>
+        </tr>
+    </template>
+
+    </div>
 
 
     <script src="js/main.js"></script>
