@@ -11,30 +11,38 @@
 </head>
 
 <body>
-    <div class="container">
-        <h4>Productos</h4>
-        <div class="row" id="cards"></div>
-        <h4>Carrito de compras</h4>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Item</th>
-                    <th scope="col">Cantidad</th>
-                    <th scope="col">Acción</th>
-                    <th scope="col">Total</th>
-                </tr>
-            </thead>
-            <tbody id="items"></tbody>
-            <tfoot>
-                <tr id="footer">
-                    <th scope="row" colspan="5">Carrito vacío - comience a comprar!</th>
-                </tr>
-            </tfoot>
-        </table>
+    <div class="containerGrid5">
+        <div class="container">
+            <h1>Productos</h1>
+            <div class="row" id="cards"></div>
+            <h4>Carrito de compras</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Item</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Acción</th>
+                        <th scope="col">Total</th>
+                    </tr>
+                </thead>
+                <tbody id="items"></tbody>
+                <tfoot>
+                    <tr id="footer">
+                        <th scope="row" colspan="5">Carrito vacío - comience a comprar!</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div id="cesta">
+            <h3>Cesta</h3>
+            <div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+        </div>
+        <div id="papelera">
+            <h3>Papelera</h3>
+        <div id="div3" ondrop="drop2(event)" ondragover="allowDrop2(event)"></div>
+        </div>
     </div>
-    <div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-    <div id="div3" ondrop="drop2(event)" ondragover="allowDrop2(event)"></div>
 
     <!-- Aquí colocamos los templates que necesitamos para pintar-->
 

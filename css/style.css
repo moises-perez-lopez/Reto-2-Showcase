@@ -1,3 +1,38 @@
+.containerGrid5{
+  display: grid;
+  grid-template-columns: repeat(3,minmax(100px,auto));
+  /*
+  grid-gap establece la separación entre columnas y rows
+  */
+  grid-gap: 20px;
+}
+
+img{
+  width: 20px;
+  height: 220px;
+}
+
+#div2{
+  width: 200px;
+}
+
+#div3{
+  width: 150px;
+  display: flex;
+  /* flex-direction = column --> pone los elementos en columna. Al cargar la página el priimer elemento lo pone a la derecha, porque hay otra modificación más abajo para el elemento 1 de hijo */
+  flex-direction: column;
+  border-bottom: 1px solid black;
+}
+
+#div2 > tr{
+  padding: 10px;
+  display: flex;
+  /* flex-direction = column --> pone los elementos en columna. Al cargar la página el priimer elemento lo pone a la derecha, porque hay otra modificación más abajo para el elemento 1 de hijo */
+  flex-direction: column;
+  border-bottom: 1px solid black;
+}
+
+
 .example-parent {
     border: 2px solid #DFA612;
     color: black;
@@ -35,7 +70,3 @@
   }
 
 
-.imagenes{
-  width: 20px;
-  height: 15px;
-}

@@ -18,7 +18,7 @@ let contenidoPapelera = {};
 document.addEventListener('DOMContentLoaded', () => {
   fetchData();
   if (localStorage.getItem('carrito')) {
-   // carrito = JSON.parse(localStorage.getItem('carrito'));
+    // carrito = JSON.parse(localStorage.getItem('carrito'));
     pintarCarrito();
   }
 });
@@ -26,6 +26,9 @@ cards.addEventListener('click', e => {
   addCarrito(e);
 })
 items.addEventListener('click', e => {
+  btnAccion(e);
+})
+cesta.addEventListener('click', e => {
   btnAccion(e);
 })
 
@@ -55,6 +58,7 @@ function drag2(ev) {
 function drop2(ev) {
   ev.preventDefault();
   var data = ev.dataTransfer.getData("text");
+  console.log(document.getElementById(data));
   ev.target.appendChild(document.getElementById(data));
   fetchData();
   delProductoCesta(document.getElementById(data));
@@ -96,24 +100,27 @@ const pintarCards = (data) => {
 }
 
 const delProductoCesta = (objeto) => {
-  console.log(objeto);
-  const productoCesta = {
-    id: objeto.id,
-    title: objeto.querySelectorAll('td')[0].textContent,
-    cantidad: objeto.querySelectorAll('td')[1].textContent,
-    precio:objeto.querySelector('span').textContent
+  if (objeto.classList.contains('card') === false) {
+    const productoCesta = {
+      id: objeto.id,
+      title: objeto.querySelectorAll('td')[0].textContent,
+      cantidad: objeto.querySelectorAll('td')[1].textContent,
+      precio: objeto.querySelector('span').textContent
+    }
+    contenidoPapelera[objeto.id] = { ...productoCesta };
+    pintarPapelera();
+    if (contenidoCesta[objeto.id].cantidad === 1) {
+      delete contenidoCesta[objeto.id];
+      delete carrito[objeto.id];
+    } else {
+      contenidoCesta[objeto.id].cantidad = contenidoCesta[objeto.id].cantidad - 1;
+      carrito[objeto.id].cantidad = carrito[objeto.id].cantidad - 1;
+    }
+    pintarCarrito();
+    pintarCesta();
+  }else{
+    pintarPapelera();
   }
-  contenidoPapelera[objeto.id] = {...productoCesta};
-  pintarPapelera();
-  if (contenidoCesta[objeto.id].cantidad === 1){
-    delete contenidoCesta[objeto.id];
-    delete carrito[objeto.id];
-  } else {
-    contenidoCesta[objeto.id].cantidad = contenidoCesta[objeto.id].cantidad - 1;
-    carrito[objeto.id].cantidad = carrito[objeto.id].cantidad - 1;
-  }
-  pintarCarrito();
-  pintarCesta();
 }
 
 const addCesta = (data, dataSelect) => {
@@ -125,7 +132,6 @@ const addCesta = (data, dataSelect) => {
 const pintarPapelera = () => {
   papelera.innerHTML = '';
   Object.values(contenidoPapelera).forEach(producto => {
-    console.log('producto title: '+producto.id);
     templatePapelera.querySelectorAll('td')[0].textContent = producto.title;
     const clone = templatePapelera.cloneNode(true);
     fragment.appendChild(clone);
@@ -141,6 +147,8 @@ const pintarCesta = () => {
     templateCesta.querySelector('tr').setAttribute("ondragstart", 'drag2(event)');
     templateCesta.querySelectorAll('td')[0].textContent = producto.title;
     templateCesta.querySelectorAll('td')[1].textContent = producto.cantidad;
+    templateCesta.querySelector('.btn-info').dataset.id = producto.id
+    templateCesta.querySelector('.btn-danger').dataset.id = producto.id
     templateCesta.querySelector('span').textContent = producto.cantidad * producto.precio;
     const clone = templateCesta.cloneNode(true);
     fragment.appendChild(clone);
@@ -220,8 +228,8 @@ const pintarFooter = () => {
 
   const boton = document.querySelector('#vaciar-carrito')
   boton.addEventListener('click', () => {
-    carrito = {}
-    contenidoCesta = {}
+    carrito = {};
+    contenidoCesta = {};
     pintarCarrito();
     pintarCesta();
   })
@@ -241,7 +249,7 @@ const btnAccion = e => {
   if (e.target.classList.contains('btn-danger')) {
     const producto = carrito[e.target.dataset.id]
     producto.cantidad = carrito[e.target.dataset.id].cantidad - 1;
-    contenidoCesta[e.target.dataset.id].cantidad = contenidoCesta[e.target.dataset.id].cantidad -1;
+    contenidoCesta[e.target.dataset.id].cantidad = contenidoCesta[e.target.dataset.id].cantidad - 1;
     if (producto.cantidad === 0) {
       delete carrito[e.target.dataset.id];
       delete contenidoCesta[e.target.dataset.id];
