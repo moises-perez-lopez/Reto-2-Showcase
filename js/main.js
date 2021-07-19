@@ -58,7 +58,6 @@ function drag2(ev) {
 function drop2(ev) {
   ev.preventDefault();
   var data = ev.dataTransfer.getData("text");
-  console.log(document.getElementById(data));
   ev.target.appendChild(document.getElementById(data));
   fetchData();
   delProductoCesta(document.getElementById(data));
