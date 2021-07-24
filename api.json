@@ -15,7 +15,7 @@
       "precio": 1,
       "id": 3,
       "title": "Agua",
-      "thumbnailUrl": "img/agua.png"
+      "thumbnailUrl": "img/agua.png" 
     },
     {
       "precio": 1.50,
